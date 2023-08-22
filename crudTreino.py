@@ -15,20 +15,18 @@ cursor.execute(f"CREATE TABLE IF NOT EXISTS {TABLE_NAME}"
                ')'
                )
 conexao.commit()
-def criarAluno(nome,idade,peso):
-    novoAluno = cursor.execute("INSERT INTO tb_alunos (nome,idade,peso) VALUES (?,?,?)",(nome,idade,peso))
+def criarAluno(conexao,nome,idade,peso):
+    novoAluno = conexao.execute("INSERT INTO tb_alunos (nome,idade,peso) VALUES (?,?,?)",(nome,idade,peso))
     conexao.commit()
     print("Aluno cadastrado com sucesso!")
-def listarAluno():
-    Alunos = cursor.execute("SELECT * FROM tb_alunos")
-    for aluno in Alunos:
-         print (aluno)
+def listarAluno(conexao):
+    Alunos = conexao.execute("SELECT * FROM tb_alunos")
     print ("Listagem realizada com sucesso!") 
-def atualizarAlunos(id,nome,idade,peso):
-    atualizando = cursor.execute("UPDATE tb_alunos SET nome = ?, idade = ?, peso = ? WHERE id = ?", (nome,idade,peso,id))
+def atualizarAlunos(conexao,id,nome,idade,peso):
+    atualizando = conexao.execute("UPDATE tb_alunos SET nome = ?, idade = ?, peso = ? WHERE id = ?", (nome,idade,peso,id))
     print("Aluno atualizado com Sucesso!")
     conexao.commit()
-def deletarAluno(id):
+def deletarAluno(conexao,id):
     deletar = conexao.execute("DELETE FROM tb_alunos WHERE id = ?",(id,))
     conexao.commit()
     print("Aluno deletado com sucesso!")
